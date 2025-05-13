@@ -15,6 +15,9 @@ public class Player_Script : MonoBehaviour
     [SerializeField] private float _poofPower;      // Poof Power
     [SerializeField] private float _poofDuration;   // Poof Duration
     [SerializeField] private float _poofCooldown;   // Poof Cooldown
+    [SerializeField] private GameObject _dlb_Jump_Unlock;
+    [SerializeField] private GameObject _dashUnlock;
+    [SerializeField] private GameObject _poofUnlock;
 
 
     private Rigidbody2D _body;
@@ -29,10 +32,14 @@ public class Player_Script : MonoBehaviour
     private bool _canDash = true;
     private bool _isPoofing = false;
     private bool _poofCreated = false;
+    private bool _hasDblJump;
+    private bool _hasDash;
+    private bool _hasPoof;
+    private bool _isFirstJump;
 
     private string _direction = "right";
 
-    private float _dashCountdown;
+    private float _dashCountdown = 0;
     private float _poofCountdown;
 
     private Vector3 _mousePos;
@@ -59,13 +66,24 @@ public class Player_Script : MonoBehaviour
         if (_body.linearVelocity.y == 0)
         {
             Animator.SetBool("isJumping", false); // Animation Reset
-
+            
             if (Input.GetKeyDown(KeyCode.W))
             {
                 _body.linearVelocity = new Vector2(_body.linearVelocity.x, _jumpStrength);
                 Animator.SetBool("isJumping", true); // Play jump animation
+                _isFirstJump = true;
+            }
+
+        } else if (_isFirstJump)
+        {
+            if (Input.GetKeyDown(KeyCode.W) && _hasDblJump)
+            {
+                _body.linearVelocity = new Vector2(_body.linearVelocity.x, _jumpStrength);
+                Animator.SetBool("isJumping", true); // Play jump animation
+                _isFirstJump = false;
             }
         }
+
 
         // Direction Control
         if (Input.GetKey(KeyCode.A)){
@@ -82,7 +100,7 @@ public class Player_Script : MonoBehaviour
         if (_dashCountdown > 0)
         {
             _dashCountdown -= Time.deltaTime;
-            _UICountdown.UiCountDown(_dashCountdown);
+            //_UICountdown.UiCountDown(_dashCountdown);
         }
         else
         {
@@ -90,7 +108,7 @@ public class Player_Script : MonoBehaviour
         }
 
         // Dash Mechanics
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !_isDashing && _canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !_isDashing && _canDash && _hasDash)
         {
             StartCoroutine(Dash()); 
         }
@@ -106,7 +124,7 @@ public class Player_Script : MonoBehaviour
         }
 
         // Poof Mechanics
-        if (Input.GetMouseButton(0) && !_isPoofing && !_poofCreated)
+        if (Input.GetMouseButton(0) && !_isPoofing && !_poofCreated && _hasPoof)
         {
             StartCoroutine(PoofEnum());
         }
@@ -183,6 +201,24 @@ public class Player_Script : MonoBehaviour
         _poofCountdown = _poofCooldown;
         _poofCreated = true;
         _poofCountdown = 3;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Dbl_jump_unlock")
+        {
+            _hasDblJump = true;
+            Destroy(_dlb_Jump_Unlock);
+        }
+        if (collision.gameObject.name == "Dash_unlock")
+        {
+            _hasDash = true;
+            Destroy(_dashUnlock);
+        }
+        if (collision.gameObject.name == "Poof_unlock")
+        {
+            _hasPoof = true;
+            Destroy(_poofUnlock);
+        }
     }
 
 }
