@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FatElvis_diffuse_0: -1411548325569283139
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
