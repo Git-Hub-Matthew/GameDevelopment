@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 
 public class Player_Script : MonoBehaviour
@@ -185,4 +186,12 @@ public class Player_Script : MonoBehaviour
         _poofCountdown = 3;
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.name == "BigVegas")
+        {
+            Debug.Log("!Game Over!");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
 }
