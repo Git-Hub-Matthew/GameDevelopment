@@ -16,10 +16,10 @@ public class Player_Script : MonoBehaviour
     [SerializeField] private float _poofPower;      // Poof Power
     [SerializeField] private float _poofDuration;   // Poof Duration
     [SerializeField] private float _poofCooldown;   // Poof Cooldown
+
     [SerializeField] private GameObject _dlb_Jump_Unlock;
     [SerializeField] private GameObject _dashUnlock;
     [SerializeField] private GameObject _poofUnlock;
-
 
     private Rigidbody2D _body;
     private SpriteRenderer _spriteRenderer;
@@ -37,6 +37,7 @@ public class Player_Script : MonoBehaviour
     private bool _hasDash;
     private bool _hasPoof;
     private bool _isFirstJump;
+    private bool _gameComplete;
 
     private string _direction = "right";
 
@@ -56,78 +57,81 @@ public class Player_Script : MonoBehaviour
 
     private void Update()
     {
-        //Left and Right Mechanics
-        if (!_isDashing && !_isPoofing)
-        {
-            _body.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * _xYSpeed, _body.linearVelocity.y);
-            Animator.SetFloat("Speed", Mathf.Abs(_body.linearVelocity.x));
-        }
+        if(!_gameComplete){
 
-        // Jumping Mechanics
-        if (_body.linearVelocity.y == 0)
-        {
-            Animator.SetBool("isJumping", false); // Animation Reset
-            
-            if (Input.GetKeyDown(KeyCode.W))
+            //Left and Right Mechanics
+            if (!_isDashing && !_isPoofing)
             {
-                _body.linearVelocity = new Vector2(_body.linearVelocity.x, _jumpStrength);
-                Animator.SetBool("isJumping", true); // Play jump animation
-                _isFirstJump = true;
+                _body.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * _xYSpeed, _body.linearVelocity.y);
+                Animator.SetFloat("Speed", Mathf.Abs(_body.linearVelocity.x));
             }
 
-        } else if (_isFirstJump)
-        {
-            if (Input.GetKeyDown(KeyCode.W) && _hasDblJump)
+            // Jumping Mechanics
+            if (_body.linearVelocity.y == 0)
             {
-                _body.linearVelocity = new Vector2(_body.linearVelocity.x, _jumpStrength);
-                Animator.SetBool("isJumping", true); // Play jump animation
-                _isFirstJump = false;
+                Animator.SetBool("isJumping", false); // Animation Reset
+                
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    _body.linearVelocity = new Vector2(_body.linearVelocity.x, _jumpStrength);
+                    Animator.SetBool("isJumping", true); // Play jump animation
+                    _isFirstJump = true;
+                }
+
+            } else if (_isFirstJump)
+            {
+                if (Input.GetKeyDown(KeyCode.W) && _hasDblJump)
+                {
+                    _body.linearVelocity = new Vector2(_body.linearVelocity.x, _jumpStrength);
+                    Animator.SetBool("isJumping", true); // Play jump animation
+                    _isFirstJump = false;
+                }
             }
-        }
 
 
-        // Direction Control
-        if (Input.GetKey(KeyCode.A)){
-            _direction = "left";
-            _spriteRenderer.flipX = true;   // flips sprite
-            
-        }
-        else if (Input.GetKey(KeyCode.D)){
-            _direction = "right";
-            _spriteRenderer.flipX = false;
-        }
+            // Direction Control
+            if (Input.GetKey(KeyCode.A)){
+                _direction = "left";
+                _spriteRenderer.flipX = true;   // flips sprite
+                
+            }
+            else if (Input.GetKey(KeyCode.D)){
+                _direction = "right";
+                _spriteRenderer.flipX = false;
+            }
 
-        // Dash Cooldown
-        if (_dashCountdown > 0)
-        {
-            _dashCountdown -= Time.deltaTime;
-            //_UICountdown.UiCountDown(_dashCountdown);
-        }
-        else
-        {
-            _canDash = true;
-        }
+            // Dash Cooldown
+            if (_dashCountdown > 0)
+            {
+                _dashCountdown -= Time.deltaTime;
+                //_UICountdown.UiCountDown(_dashCountdown);
+            }
+            else
+            {
+                _canDash = true;
+            }
 
-        // Dash Mechanics
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !_isDashing && _canDash && _hasDash)
-        {
-            StartCoroutine(Dash()); 
-        }
+            // Dash Mechanics
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !_isDashing && _canDash && _hasDash)
+            {
+                StartCoroutine(Dash()); 
+            }
 
-        // Poof Cooldown
-        if (_poofCountdown > 0)
-        {
-            _poofCountdown -= Time.deltaTime;
-        }
-        else
-        {
-            _poofCreated = false;
-        }
+            // Poof Cooldown
+            if (_poofCountdown > 0)
+            {
+                _poofCountdown -= Time.deltaTime;
+            }
+            else
+            {
+                _poofCreated = false;
+            }
 
-        // Poof Mechanics
-        if (Input.GetMouseButton(0) && !_isPoofing && !_poofCreated && _hasPoof)
-        {
-            StartCoroutine(PoofEnum());
+            // Poof Mechanics
+            if (Input.GetMouseButton(0) && !_isPoofing && !_poofCreated && _hasPoof)
+            {
+                StartCoroutine(PoofEnum());
+            }
         }
     }
 
@@ -203,6 +207,7 @@ public class Player_Script : MonoBehaviour
         _poofCreated = true;
         _poofCountdown = 3;
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Dbl_jump_unlock")
@@ -220,14 +225,24 @@ public class Player_Script : MonoBehaviour
             _hasPoof = true;
             Destroy(_poofUnlock);
         }
+
+        if(collision.gameObject.tag == "Finish"){
+            Finish_Win();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.name == "BigVegas")
-        {
+        if(collision.gameObject.name == "BigVegas"){
             Debug.Log("!Game Over!");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    void Finish_Win(){
+        _gameComplete = true;
+        Animator.SetBool("isJumping", false);
+        _body.linearVelocity = Vector2.right * _xYSpeed / 2;
+        Camera.main.transform.parent.GetComponent<CameraTarget>().enabled = false;
     }
 }
