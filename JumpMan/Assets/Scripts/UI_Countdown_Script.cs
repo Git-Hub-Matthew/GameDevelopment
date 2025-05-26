@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI_Countdown_Script : MonoBehaviour
 {
-    private Image Countdown;
+    [SerializeField] private Image Countdown;
 
     private void Awake()
     {
