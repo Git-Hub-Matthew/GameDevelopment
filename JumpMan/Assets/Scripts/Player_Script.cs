@@ -38,6 +38,7 @@ public class Player_Script : MonoBehaviour
     private bool _hasPoof;
     private bool _isFirstJump;
     private bool _gameComplete;
+    private bool _gameOver;
 
     private string _direction = "right";
 
@@ -225,24 +226,35 @@ public class Player_Script : MonoBehaviour
             _hasPoof = true;
             Destroy(_poofUnlock);
         }
-
-        if(collision.gameObject.tag == "Finish"){
+        if (collision.gameObject.tag == "Finish")
+        {
             Finish_Win();
+        }
+        if (collision.gameObject.tag == "ChangeScene")
+        {
+            SceneManager.LoadScene("EndMenu");
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.name == "BigVegas"){
-            Debug.Log("!Game Over!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (!_gameOver)
+        {
+            if (collision.gameObject.name == "BigVegas")
+            {
+                Debug.Log("!Game Over!");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
+        
     }
 
-    void Finish_Win(){
+    void Finish_Win()
+    {
         _gameComplete = true;
         Animator.SetBool("isJumping", false);
         _body.linearVelocity = Vector2.right * _xYSpeed / 2;
         Camera.main.transform.parent.GetComponent<CameraTarget>().enabled = false;
+        _gameOver = true;
     }
 }
