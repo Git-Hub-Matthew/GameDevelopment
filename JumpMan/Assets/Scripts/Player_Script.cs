@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 
 public class Player_Script : MonoBehaviour
@@ -22,7 +24,15 @@ public class Player_Script : MonoBehaviour
 
     private Rigidbody2D _body;
     private SpriteRenderer _spriteRenderer;
-    private UI_Countdown_Script _UICountdown;
+    [SerializeField] private GameObject _TrailUICountdown;
+    [SerializeField] private GameObject _PoofUICountdown;
+    [SerializeField] private GameObject _TrailUI;
+    [SerializeField] private GameObject _PoofUI;
+    [SerializeField] private GameObject _Dbl_jump_text;
+    [SerializeField] private GameObject _Trail_text;
+    [SerializeField] private GameObject _Poof_text;
+    private UI_Countdown_Script _TrailUICountdownScript;
+    private UI_Countdown_Script _PoofUICountdownScript;
 
     public Animator Animator;
     public GameObject Trail;
@@ -39,7 +49,7 @@ public class Player_Script : MonoBehaviour
 
     private string _direction = "right";
 
-    private float _dashCountdown = 0;
+    private float _dashCountdown;
     private float _poofCountdown;
 
     private Vector3 _mousePos;
@@ -51,6 +61,13 @@ public class Player_Script : MonoBehaviour
     {
         _body = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _TrailUI.SetActive(false);
+        _PoofUI.SetActive(false);
+        _TrailUICountdown.SetActive(false);
+        _PoofUICountdown.SetActive(false);
+        _Dbl_jump_text.SetActive(false);
+        _Trail_text.SetActive(false);
+        _Poof_text.SetActive(false);
     }
 
     private void Update()
@@ -96,30 +113,37 @@ public class Player_Script : MonoBehaviour
             _spriteRenderer.flipX = false;
         }
 
+        // Dash Mechanics
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !_isDashing && _canDash && _hasDash)
+        {
+            StartCoroutine(Dash());
+        }
+
         // Dash Cooldown
         if (_dashCountdown > 0)
         {
             _dashCountdown -= Time.deltaTime;
-            //_UICountdown.UiCountDown(_dashCountdown);
+            _TrailUICountdown.SetActive(true);
+            _TrailUICountdownScript = _TrailUICountdown.GetComponent<UI_Countdown_Script>();
+            _TrailUICountdownScript.UiCountDown(_dashCountdown);
         }
         else
         {
+            _TrailUICountdown.SetActive(false);
             _canDash = true;
-        }
-
-        // Dash Mechanics
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !_isDashing && _canDash && _hasDash)
-        {
-            StartCoroutine(Dash()); 
         }
 
         // Poof Cooldown
         if (_poofCountdown > 0)
         {
             _poofCountdown -= Time.deltaTime;
+            _PoofUICountdown.SetActive(true);
+            _PoofUICountdownScript = _PoofUICountdown.GetComponent<UI_Countdown_Script>();
+            _PoofUICountdownScript.UiCountDown(_poofCountdown);
         }
         else
         {
+            _PoofUICountdown.SetActive(false);
             _poofCreated = false;
         }
 
@@ -202,22 +226,33 @@ public class Player_Script : MonoBehaviour
         _poofCreated = true;
         _poofCountdown = 3;
     }
+    IEnumerator Message(GameObject text)
+    {
+        text.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        text.SetActive(false);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Dbl_jump_unlock")
         {
             _hasDblJump = true;
             Destroy(_dlb_Jump_Unlock);
+            StartCoroutine(Message(_Dbl_jump_text));
         }
         if (collision.gameObject.name == "Dash_unlock")
         {
             _hasDash = true;
             Destroy(_dashUnlock);
+            _TrailUI.SetActive(true);
+            StartCoroutine(Message(_Trail_text));
         }
         if (collision.gameObject.name == "Poof_unlock")
         {
             _hasPoof = true;
             Destroy(_poofUnlock);
+            _PoofUI.SetActive(true);
+            StartCoroutine(Message(_Poof_text));
         }
     }
 
