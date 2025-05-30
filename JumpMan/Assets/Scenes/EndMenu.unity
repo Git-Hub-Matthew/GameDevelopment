@@ -258,13 +258,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 8ad06f78cddd1fa4fae32b8dd7763f11, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 203420941}
+        m_TargetAssemblyTypeName: Mainmenu, Assembly-CSharp
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 203420935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ad06f78cddd1fa4fae32b8dd7763f11, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ca9067ff8ec03442bf4ff8cc51400e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &766743216
