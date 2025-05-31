@@ -3748,7 +3748,7 @@ GameObject:
   - component: {fileID: 2011427869}
   m_Layer: 0
   m_Name: Square (1)
-  m_TagString: Finish
+  m_TagString: ChangeScene
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3863,8 +3863,8 @@ Transform:
   m_GameObject: {fileID: 2011427868}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 90.83, y: 1.05, z: 0}
-  m_LocalScale: {x: 9.678251, y: 21.279531, z: 7.5505652}
+  m_LocalPosition: {x: 80.82, y: 1.05, z: 0}
+  m_LocalScale: {x: 1.3239849, y: 21.279531, z: 7.5505652}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
