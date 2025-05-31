@@ -230,7 +230,7 @@ public class Player_Script : MonoBehaviour
             Finish_Win();
         }
 
-        if(collision.gameObject.tag == "Change_Scene"){        
+        if(collision.gameObject.tag == "ChangeScene"){        
             SceneManager.LoadScene("Menu");
         }
     }
