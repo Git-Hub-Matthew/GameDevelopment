@@ -14,5 +14,11 @@ public class Enemy_Script : MonoBehaviour
     private void Update()
     {
         _body.linearVelocity = new Vector2(_xSpeed, 0);
+
+        if (_body.position.x > Camera.main.transform.position.x + 20)
+        {
+            _body.linearVelocity = new Vector2(0, 0);
+        }
+        
     }
 }
