@@ -229,6 +229,10 @@ public class Player_Script : MonoBehaviour
         if(collision.gameObject.tag == "Finish"){
             Finish_Win();
         }
+
+        if(collision.gameObject.tag == "Change_Scene"){        
+            SceneManager.LoadScene("Menu");
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
