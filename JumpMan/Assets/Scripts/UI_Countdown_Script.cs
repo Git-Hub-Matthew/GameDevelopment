@@ -2,23 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UI_Countdown_Script : MonoBehaviour
 {
-    [SerializeField] private Image Countdown;
-
-    private void Awake()
-    {
-        Countdown = GetComponent<Image>();
-    }
+    [SerializeField] private TextMeshProUGUI Countdown;
 
     public void UiCountDown(float count)
     {
-        int timerValue = Mathf.FloorToInt(count); // Float -> Int
-
-        if (timerValue >= 0 && timerValue <= 8)
-        {
-            Countdown.sprite = Resources.Load<Sprite>("Timer_" + timerValue);
-        }
+        //int cooldown = (int)count;
+        Countdown.text = string.Format("{0:0}", count);
     }
 }
