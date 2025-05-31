@@ -231,7 +231,7 @@ public class Player_Script : MonoBehaviour
         }
 
         if(collision.gameObject.tag == "ChangeScene"){        
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("EndMenu");
         }
     }
 
@@ -239,7 +239,7 @@ public class Player_Script : MonoBehaviour
     {
         if(collision.gameObject.name == "BigVegas"){
             Debug.Log("!Game Over!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("Jumpman");
         }
     }
 

@@ -236,8 +236,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 0, b: 0.44483566, a: 0}
-    m_HighlightedColor: {r: 1, g: 0, b: 0.44521236, a: 0.4117647}
-    m_PressedColor: {r: 1, g: 0, b: 0.46568155, a: 0.69411767}
+    m_HighlightedColor: {r: 1, g: 0, b: 0.44521236, a: 0}
+    m_PressedColor: {r: 1, g: 0, b: 0.46568155, a: 0}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -259,7 +259,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 203420941}
-        m_TargetAssemblyTypeName: Mainmenu, Assembly-CSharp
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
@@ -317,15 +317,15 @@ RectTransform:
   m_GameObject: {fileID: 203420935}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.42149, y: 8.19043, z: 2.2061799}
+  m_LocalScale: {x: 2.9516232, y: 13.228202, z: 2.6891756}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1521064844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 91.52136, y: -326.06293}
-  m_SizeDelta: {x: 38.648, y: 5.6292}
+  m_AnchorMin: {x: 0.54643756, y: 0.19740744}
+  m_AnchorMax: {x: 0.54643756, y: 0.19740744}
+  m_AnchoredPosition: {x: 2, y: 0}
+  m_SizeDelta: {x: 40.64801, y: 4.6292114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &203420941
 MonoBehaviour:
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 203420935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ca9067ff8ec03442bf4ff8cc51400e0, type: 3}
+  m_Script: {fileID: 11500000, guid: d3f01860aa791f24fa11a505bc56fdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &766743216
@@ -447,15 +447,15 @@ RectTransform:
   m_GameObject: {fileID: 1342880551}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.42149, y: 8.19043, z: 2.2061799}
+  m_LocalScale: {x: 2.7241762, y: 10.749939, z: 2.2061799}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1521064844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -70.157, y: -328.3595}
-  m_SizeDelta: {x: 57.946, y: 5.8696}
+  m_AnchorMin: {x: 0.46656254, y: 0.19740744}
+  m_AnchorMax: {x: 0.46656254, y: 0.19740744}
+  m_AnchoredPosition: {x: -4, y: -1}
+  m_SizeDelta: {x: 58.946, y: 5.869629}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1342880553
 MonoBehaviour:
@@ -491,8 +491,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 0, b: 0.44483566, a: 0}
-    m_HighlightedColor: {r: 1, g: 0, b: 0.44521236, a: 0.4117647}
-    m_PressedColor: {r: 1, g: 0, b: 0.46568155, a: 0.69411767}
+    m_HighlightedColor: {r: 1, g: 0, b: 0.44521236, a: 0}
+    m_PressedColor: {r: 1, g: 0, b: 0.46568155, a: 0}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
